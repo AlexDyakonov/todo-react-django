@@ -1,0 +1,14 @@
+.env file:
+    DJANGO_SECRET_KEY=key
+    DEBUG_MODE=True
+    
+    ALLOWED_HOST=127.0.0.1
+    SCRF_SUBDOMAIN=*.127.0.0.1:8000
+
+    SQLITE=True
+    POSTGRES_DB=database
+    POSTGRES_USER=postgres
+    POSTGRES_PASSWORD=root
+    POSTGRES_HOST=database
+    POSTGRES_PORT=5432
+    
