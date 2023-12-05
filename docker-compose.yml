@@ -55,16 +55,14 @@ services:
     ports:
       - "${NGINX_EXTERNAL_PORT:-80}:80"
   frontend:
-    restart: unless-stopped
     build: 
       dockerfile: ./docker/frontend/Dockerfile
       context: .
-    env_file:
-      - .env
+    container_name: vite-react-express
+    command: npm run serve
+    image: vite-react-express:latest
     ports:
-      - "5173:5173"
-    network_mode: host
-    # volumes:
-    #   - /frontend/node_modules
-    depends_on: 
-      - django
+      - '3000:3000'
+    volumes:
+      - ./frontend:/frontend
+    

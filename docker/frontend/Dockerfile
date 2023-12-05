@@ -1,13 +1,16 @@
 FROM node:20
 
-EXPOSE 5173
-
 WORKDIR /frontend
 
-COPY /frontend/package.json .
+RUN mkdir -p /opt/node_modules
 
-RUN npm install
+COPY ./frontend/package.json /frontend
+COPY ./frontend/package-lock.json /frontend
 
-COPY /frontend/ .
+RUN npm ci
 
-CMD [ "npm", "run", "dev", "--host", "0.0.0.0"]
+COPY ./frontend /frontend
+
+EXPOSE 3000
+
+CMD ["npm", "run", "serve"]
