@@ -3,10 +3,6 @@ import { MdOutlineDeleteOutline, MdEditNote, MdOutlineCheckBox, MdOutlineCheckBo
 import axios from 'axios'
 
 const Table = ({ todos, isLoading, setTodos }) => {
-    const handleCheckbox = (id, value) => {
-        console.log(value.completed);
-      }
-    
       const handleDelete = async (id) => {
         try {
           await axios.delete(`http://127.0.0.1:80/api/todo/${id}/`)
@@ -16,6 +12,25 @@ const Table = ({ todos, isLoading, setTodos }) => {
           console.log(error);
         }
       }
+
+      const handleEdit = async (id, value) => {
+        try {
+          const response = await axios.patch(`http://127.0.0.1:80/api/todo/${id}/`, value)
+          console.log(response.data);
+          const newTodos = todos.map(todo => todo.id === id ? response.data : todo)
+          setTodos(newTodos)
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      const handleCheckbox = (id, value) => {
+        console.log(value.completed);
+        handleEdit(id, {
+          'completed': !value
+        })
+      }
+    
 
     return(
         <div className='py-8 center'>
