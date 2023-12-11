@@ -64,10 +64,9 @@ const Table = ({ todos, isLoading, setTodos }) => {
                                 </span>
                             </td>
                             <td className='p-3 text-sm font-medium'>{new Date(todoItem.created).toLocaleString()}</td>
-                            <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5'>
-                            <span><label htmlFor="my-modal"><MdEditNote
-                                className=' text-xl cursor-pointer'/></label></span>
-                            <span className=' text-xl cursor-pointer'><MdOutlineDeleteOutline onClick={() => handleDelete(todoItem.id)} /></span>                            </td>
+                            <td className='p-3 text-sm font-medium flex justify-center items-center h-full mt-2'>
+                            {/* <span><label htmlFor="my-modal"><MdEditNote className=' text-xl cursor-pointer'/></label></span> */}
+                            <span className='p-0 text-xl cursor-pointer'><MdOutlineDeleteOutline onClick={() => handleDelete(todoItem.id)} /></span>                            </td>
                         </tr>
                     )
                 })
