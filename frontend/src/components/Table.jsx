@@ -16,18 +16,33 @@ const Table = ({ todos, isLoading, setTodos }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td className='p-3 text-sm'>
-                        <span className='inline-block cursor-pointer'> <MdOutlineCheckBox /> </span>
-                        </td>
-                        <td className='p-3 text-sm'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                        <td className='p-3 text-sm'><span className='p-1.5 text-xs font-medium -tracking-wider rounded-md bg-green-300'>Done</span></td>
-                        <td className='p-3 text-sm'>06.12.23</td>
-                        <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5'>
-                            <span><label htmlFor="my-modal" ><MdEditNote className=' text-xl cursor-pointer'/></label></span>
-                            <span className=' text-xl cursor-pointer'><MdOutlineDeleteOutline /></span>
-                        </td>
-                    </tr>
+                {isLoading ? <div>Is loading</div> :
+                    <>
+                { todos.map( (todoItem, index) => {
+                    return (
+                        <tr key={todoItem.id} className="border-b border-black">
+                            <td className='p-3 text-sm'>
+                                <span className='inline-block cursor-pointer'> <MdOutlineCheckBox/> </span>
+                            </td>
+                            <td className='p-3 text-sm ' title={todoItem.id}>{todoItem.body}</td>
+                            <td className='p-3 text-sm text-center'>
+                                <span
+                                    className={`p-1.5 text-xs font-medium tracking-wider rounded-md ${todoItem.completed ? 'bg-green-300' : 'bg-red-300'}`}>
+                                  {todoItem.completed ? 'Done' : 'Incomplete'}
+                                </span>
+                            </td>
+                            <td className='p-3 text-sm font-medium'>{new Date(todoItem.created).toLocaleString()}</td>
+                            <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5'>
+                            <span><label htmlFor="my-modal"><MdEditNote
+                                className=' text-xl cursor-pointer'/></label></span>
+                                <span className=' text-xl cursor-pointer'><MdOutlineDeleteOutline/></span>
+                            </td>
+                        </tr>
+                    )
+                })
+                }
+                    </>
+                }
                 </tbody>
             </table>
         </div>
