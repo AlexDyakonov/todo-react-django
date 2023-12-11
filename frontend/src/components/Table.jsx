@@ -1,7 +1,21 @@
 import React from 'react'
 import { MdOutlineDeleteOutline, MdEditNote, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank } from 'react-icons/md'
+import axios from 'axios'
 
 const Table = ({ todos, isLoading, setTodos }) => {
+    const handleCheckbox = (id, value) => {
+        console.log(value.completed);
+      }
+    
+      const handleDelete = async (id) => {
+        try {
+          await axios.delete(`http://127.0.0.1:80/api/todo/${id}/`)
+          const newList = todos.filter(todo => todo.id !== id)
+          setTodos(newList)
+        } catch (error) {
+          console.log(error);
+        }
+      }
 
     return(
         <div className='py-8 center'>
@@ -21,8 +35,11 @@ const Table = ({ todos, isLoading, setTodos }) => {
                 { todos.map( (todoItem, index) => {
                     return (
                         <tr key={todoItem.id} className="border-b border-black">
-                            <td className='p-3 text-sm'>
-                                <span className='inline-block cursor-pointer'> <MdOutlineCheckBox/> </span>
+                            <td className='p-3'>
+                                <span onClick={() => handleCheckbox(todoItem.id, todoItem.completed)}
+                                  className='inline-block cursor-pointer'>{todoItem.completed === true ? <MdOutlineCheckBox /> :
+                                    <MdOutlineCheckBoxOutlineBlank />}
+                                </span>
                             </td>
                             <td className='p-3 text-sm ' title={todoItem.id}>{todoItem.body}</td>
                             <td className='p-3 text-sm text-center'>
@@ -35,8 +52,7 @@ const Table = ({ todos, isLoading, setTodos }) => {
                             <td className='p-3 text-sm font-medium grid grid-flow-col items-center mt-5'>
                             <span><label htmlFor="my-modal"><MdEditNote
                                 className=' text-xl cursor-pointer'/></label></span>
-                                <span className=' text-xl cursor-pointer'><MdOutlineDeleteOutline/></span>
-                            </td>
+                            <span className=' text-xl cursor-pointer'><MdOutlineDeleteOutline onClick={() => handleDelete(todoItem.id)} /></span>                            </td>
                         </tr>
                     )
                 })

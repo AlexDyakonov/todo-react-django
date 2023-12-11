@@ -34,18 +34,18 @@ CSRF_TRUSTED_ORIGINS = []
 if scrf_subdomain := os.getenv("SCRF_SUBDOMAIN"):
     CSRF_TRUSTED_ORIGINS += [f'http://{scrf_subdomain}', f'https://{scrf_subdomain}']
 
+CORS_ALLOW_HEADERS = ['*']
+
+ALLOWED_HOSTS=['*']
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     "https://*", "http://*",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = [
-    "127.0.0.1", 
-]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1", 
-]
 CORS_ALLOW_CREDENTIALS = False
 
 
